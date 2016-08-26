@@ -4,12 +4,12 @@ import random
 classs = str("null");
 level = 0;
 choice = 0;
-statbudget = 0;
 quality = str("Common");
 qualitychoice = 0;
 armour = str("Head");
 armourchoice = 0;
 material = str("Dirt");
+itembudget = 0;
 
 # Getting the level and class from the player
 print ("What level are you from 1-30");
@@ -34,6 +34,8 @@ while True:
         continue
     else:
         break
+
+itembudget = level * 100
 
 while choice > 3 or choice < 1:
     print("Please choose 1, 2 or 3");
@@ -63,16 +65,22 @@ while qualitychoice > 6 or qualitychoice < 1:
     qualitychoice = int(input());
 if qualitychoice == 1:
     quality = str("Common");
+    itembudget += 100;
 if qualitychoice == 2:
     quality = str("Uncommon");
+    itembudget += 250;
 if qualitychoice == 3:
     quality = str("Rare");
+    itembudget += 500;
 if qualitychoice == 4:
     quality = str("Epic");
+    itembudget += 1000;
 if qualitychoice == 5:
     quality = str("Legendary");
+    itembudget += 2000;
 if qualitychoice == 6:
     quality = str("Artifact");
+    itembudget += 3000;
 
 # Choosing the slot for the armour
 print("What slot is the armour for?");
@@ -92,12 +100,16 @@ while armourchoice > 4 or armourchoice < 1:
     armourchoice = int(input());
 if armourchoice == 1:
     armour = str("Helmet");
+    itembudget += 500;
 if armourchoice == 2:
     armour = str("Breastplate");
+    itembudget += 3000;
 if armourchoice == 3:
     armour = str("Armguard");
+    itembudget += 1000;
 if armourchoice == 4:
     armour = str("Leggings");
+    itembudget += 2000;
 
 
 print("Generating an " + str(quality) + " " + str(armour) + " for a level " + str(level) + " " + str(classs));
@@ -342,25 +354,30 @@ dodge = 0;
 damagemitigation = 0;
 multistrike = 0;
 # Basic armour values
+itembudget1 = itembudget / 4;
+itembudget2 = itembudget / 4;
+itembudget3 = itembudget / 4;
+itembudget4 = itembudget / 4;
+
 value += level * 100 * armourbuff;
-health += level * 100 * 0.85 * armourbuff;
-damage += level * 20 * armourbuff;
-damagemitigation += level * 20 * armourbuff;
+health += itembudget1 / 100 / 0.85 * armourbuff;
+damage += itembudget2 / 20 * armourbuff;
+damagemitigation += itembudget3 / 20 * armourbuff;
 # Armour values based on attribute values
 if attribute == str("Combat Mastery"):
-    damage += level * 10 * armourbuff;
+    damage += itembudget4 / 10 * armourbuff;
     value += 20 * level * armourbuff;
 if attribute == str("Damage Mitigation"):
-    damagemitigation += level * 10 * armourbuff;
+    damagemitigation += itembudget4 / 10 * armourbuff;
     value += 20 * level * armourbuff;
 if attribute == str("Stamina"):
-    health += level * 50 * armourbuff;
+    health += itembudget4 / 50 * armourbuff;
     value += 20 * level * armourbuff;
 if attribute == str("Acuity"):
     critchance += 0.5 * level * armourbuff;
     value += 20 * level * armourbuff;
 if attribute == str("Strength"):
-    damage += level * 10 * armourbuff;
+    damage += itembudget4 / 10 * armourbuff;
     value += 20 * level * armourbuff;
 if attribute == str("Alertness"):
     dodge += level * 0.5 * armourbuff;
